@@ -25,14 +25,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Run script to update M3U
-        run: python sayan.py
+      - name: Run scripts to update M3U playlists
+        run: |
+          python sayan.py
+          python json-m3u.py
 
       - name: Commit and Push changes
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add sayan.m3u
+          git add sayan.m3u Sportlink.m3u
           
           # Check if there are any changes to commit
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Automated update of sayan.m3u" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Automated update of M3U playlists" && git push)
